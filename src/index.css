@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-ink: #0e1a33;
+  --color-ink-soft: #1c2d52;
+  --color-canvas: #f4f6f9;
+  --color-line: #e2e7ef;
+  --color-muted: #566781;
+  --color-gain: #0a8f5c;
+  --color-gain-bright: #2bc48a;
+  --color-gain-soft: #e3f5ec;
+  --color-loss: #c93434;
+  --color-loss-soft: #fbeaea;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gain);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-line bg-white; }
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-muted/60 focus:border-gain focus:outline-none focus:ring-2 focus:ring-gain/25;
+  }
+  .input[aria-invalid="true"] { @apply border-loss focus:border-loss focus:ring-loss/25; }
+  .btn-primary { @apply btn bg-gain text-white hover:bg-gain/90; }
+  .btn-danger { @apply btn bg-loss text-white hover:bg-loss/90; }
+  .btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-canvas; }
+  .money { font-variant-numeric: tabular-nums; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
